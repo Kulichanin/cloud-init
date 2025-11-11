@@ -1,0 +1,47 @@
+cloud-config
+# Настройка пользователей
+groups:
+  - admins
+users:
+  - name: admin
+    primary_group: admin
+    groups:
+      - sudo
+      - admins
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    ssh_authorized_keys:
+      - ssh ключ
+
+# Не дать угнать за 60 секунд: автоматизируем базовую настройку облачного сервера
+# Указанные параметры запрещают аутентификацию по паролю при использовании SSH, а также вход пользователя root и любых других пользователей, не принадлежащих ранее созданной группе admins (меры ИАФ.1 и УПД.2). 
+# Кроме того, реализуется автоматическое завершение открытой SSH-сессии на стороне сервера при отсутствии сетевой активности SSH-клиента в течение 15 минут — например, при переходе компьютера администратора в спящий режим или при потере интернет-соединения     
+runcmd:
+  - sed -i -e '/^PermitRootLogin/s/^.*$/PermitRootLogin no/' /etc/ssh/sshd_config
+  - sed -i -e '/^PasswordAuthentication/s/^.*$/PasswordAuthentication no/' /etc/ssh/sshd_config
+  - sed -i -e '/^#ClientAliveInterval/s/^.*$/ClientAliveInterval 5m/' /etc/ssh/sshd_config
+  - sed -i -e '/^#ClientAliveCountMax/s/^.*$/ClientAliveCountMax 3/' /etc/ssh/sshd_config
+  - sed -i -e '$aAllowGroups admins' /etc/ssh/sshd_config
+
+
+# Установка дополнительных пакетов
+packages:
+  - nginx
+  - curl
+
+# Выполнение произвольных команд (выполняются на последнем этапе)
+runcmd:
+  - [systemctl, enable, nginx]
+  - [systemctl, start, nginx]
+
+# Сообщение после завершения настройки
+final_message: "Система готова к работе после $UPTIME секунд!"
+
+# Выводим сообщение при входе (через /etc/motd)
+write_files:
+  - path: /etc/motd
+    content: |
+      ===========================================
+      |  ЛАБОРАТОРНЫЙ СТЕНД. ПРИВЕТ НА ВЕБИНАРЕ |
+      ===========================================
+    permissions: '0644'
