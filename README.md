@@ -66,6 +66,6 @@ Ctrl-A C
 Ctrl-A X
 ```
 
-## Дополнительный материалы
+## Дополнительные материалы
 
 [Ссылка](https://docs.google.com/presentation/d/1g-0pXzeB0ZSisv9CiwIQFzDd-qTGt_xsIbJdSBuibjI/edit?usp=sharing) на презентацию
