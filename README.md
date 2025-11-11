@@ -55,3 +55,17 @@ qemu-system-x86_64 \
   -redir tcp:2222::22 \     #  Проброс портов ssh
   -nographic                # Запуск в консоли (опционально)
 ```
+
+## Hot keys
+Для работы с QUME из консоли
+```bash
+Ctrl-A C
+```
+Прибить процесс qume
+```bash
+Ctrl-A X
+```
+
+## Дополнительный материалы
+
+[Ссылка](https://docs.google.com/presentation/d/1g-0pXzeB0ZSisv9CiwIQFzDd-qTGt_xsIbJdSBuibjI/edit?usp=sharing) на презентацию
