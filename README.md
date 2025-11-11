@@ -47,7 +47,7 @@ qemu-system-x86_64 \
   -enable-kvm \             # Использовать KVM для ускорения
   -cpu host \               # Пробросить CPU хоста
   -m 2048 \                 # Выделить 2 ГБ оперативной памяти
-  -hda alma9-cloud.qcow2 \ # Основной диск (образ ОС)
+  -hda jammy-server-cloudimg-amd64.img \ # Основной диск, который мы загрузили предварительно
   -cdrom cloud-init.iso \   # Диск конфигурации cloud-init
   -netdev user,id=net0 \    # Настройка сети (режим "user")
   -device virtio-net-pci,netdev=net0 \
